@@ -24,6 +24,11 @@ namespace SimpleCalculator
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
+            //The try statement
+            try
+            {
+
+          
             decimal operand1 = Convert.ToDecimal(txtOperand1.Text);
             string operator1 = txtOperator.Text;
             decimal operand2 = Convert.ToDecimal(txtOperand2.Text);
@@ -32,6 +37,41 @@ namespace SimpleCalculator
             result = Math.Round(result, 4);
             this.txtResult.Text = result.ToString();
             txtOperand1.Focus();
+            }
+
+            //Format exeptaion added.
+            catch(FormatException)
+            {
+                MessageBox.Show(
+                    "invalid value. Please check all entries.", "Entry Error");
+            }
+
+            //Overflow exeptaion added.
+            catch(OverflowException)
+            {
+                MessageBox.Show(
+                    "Overflow error. Please enter smaller values.",
+                    "Entry Erorr");
+            }
+
+            //DivideByZero exeptaion added. 
+            catch(DivideByZeroException)
+            {
+                MessageBox.Show(
+                    "Divide by zero error. Your second operand must not be zero.",
+                    "Entry error.");
+
+            }
+
+            //This catch statement will catch any exeptations.
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" + ex.GetType().ToString() +
+                    "\n" + ex.StackTrace, "Exception");
+
+            }
+           
         }
 
         private decimal Calculate(decimal operand1, string operator1,
